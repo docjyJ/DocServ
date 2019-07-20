@@ -16,7 +16,7 @@
 							</c:forEach>
 						</select>
 					</div><div class="formSelectb">
-						<button type="submit" id="subStart" class="formSelect" onmouseover="document.getElementById('allStart').classList.add('select');" onmouseout="document.getElementById('allStart').classList.remove('select');">►</button>
+						<button type="submit" id="subStart" class="formSelect" onmouseover="document.getElementById('allStart').classList.add('select');" onmouseout="document.getElementById('allStart').classList.remove('select');"><i class="fas fa-play"></i></button>
 					</div>
 				</form>
 			</div>
@@ -43,7 +43,7 @@
     	<div class="div">
 			<h1>Erreur Interne</h1>
 			<div class="formSelect" id="allStart">
-				<span>Erreur</span><button class="formSelect2" onclick ="relodServers();">🗘</button>
+				<span>Erreur</span><button class="formSelect2" onclick ="relodServers();"><i class="fas fa-sync-alt"></i></button>
 			</div>
 		</div>
 	</c:when>
