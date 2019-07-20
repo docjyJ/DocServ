@@ -9,9 +9,9 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>DocServ Maven Webapp</name>
+  <name>DocServ</name>
   <description>
-    Hébergeur Minecraft perso.
+    Hébergeur Minecraft
   </description>
   <url>http://docjyj.ddns.net/</url>
 
