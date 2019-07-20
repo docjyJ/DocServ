@@ -10,7 +10,25 @@
   <packaging>war</packaging>
 
   <name>DocServ Maven Webapp</name>
+  <description>
+    Hébergeur Minecraft perso.
+  </description>
   <url>http://docjyj.ddns.net/</url>
+
+  <organization>
+    <name>Mon Entreprise</name>
+    <url>http://www.exemple.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+
+
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
