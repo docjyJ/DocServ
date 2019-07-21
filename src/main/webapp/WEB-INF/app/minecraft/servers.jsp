@@ -1,7 +1,7 @@
 <c:choose>
     <c:when test="${ openServ == 0 }">
 	    <div class="div">
-			<h1>Démarer un serveur</h1>
+			<h1>Démarrer un serveur</h1>
 			<div class="formSelect" id="allStart">
 				<form id="start">
 					<div class="formSelecta" id="selectStart">
