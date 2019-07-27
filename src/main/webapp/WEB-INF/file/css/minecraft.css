@@ -299,3 +299,66 @@ button.formSelect2:hover, button.formSelect2:focus {
 div.formSelect span{
     line-height: 30px;
 }
+
+
+
+
+
+
+.console {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	padding: 10px;
+	box-sizing: border-box;
+	margin: 0;
+	font-family: 'Press Start 2P', cursive;
+	background-color: #000;
+}
+.console .output {
+	overflow: auto;
+	width: 100%;
+	font-size: 12px;
+	color: #cccccc;
+	height: 500px;
+}
+.console .output p {
+	margin: 0;
+	line-height: 20px;
+	color: darkorchid;
+	text-align: left;
+}
+.console .output p.INFO {
+	color: white;
+}
+.console .output p.WARN {
+	color: orange;
+}
+.console .output p.ERROR {
+	color: orange;
+}
+.console .action {
+	display: block;
+	width: 100%;
+	font-size: 14px;
+	margin-top: 20px;
+}
+.console .action span{
+	width: 60px;
+}
+.console .action input{
+	width: calc( 100% - 60px - 21px );
+ }
+.console .action button{
+	width: 21px;
+}
+.console .action span, .console .action input, .console .action button{
+	outline: 0;
+	padding: 0;
+	font-family: 'Press Start 2P', cursive;
+	display: inline-block;
+	float: left;
+	color: white;
+	background: transparent;
+	border: none;
+}

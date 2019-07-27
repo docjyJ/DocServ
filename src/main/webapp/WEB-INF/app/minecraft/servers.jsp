@@ -31,13 +31,15 @@
 		</div>
 		<div class="div">
 			<h1>Console</h1>
-			<div id=console></div>
-			<form id="cmd">
-				<input class="" type="text" name="cmd" value="${ title }">
-				<input class="" type="submit">
-			</form>
+			<div class="console">
+				<div class="output">${ console }</div>
+				<form id="cmd" class="action">
+					<span>dev$ </span>
+					<input type="text" name="cmd" value="${ title }">
+					<button type="submit"><i class="fas fa-paper-plane"></i></button>
+				</form>
+			</div>
 		</div>
-		
 	</c:when>
     <c:when test="${ openServ == 2 }">
     	<div class="div">

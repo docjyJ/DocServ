@@ -39,7 +39,7 @@ public class Minecraft extends HttpServlet {
 		}
 		else if (request.getParameterMap().containsKey("command")) {
 			try {
-				M.runCMD(request.getParameter("cmd"), response.getWriter());
+				M.runCMD(request.getParameter("cmd"));
 			} catch (AuthenticationException | IOException e) {
 				e.printStackTrace();
 			}

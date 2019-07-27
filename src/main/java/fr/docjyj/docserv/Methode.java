@@ -135,10 +135,12 @@ class Methode {
         Integer num = 0;
         File server = new File(location() + "/data/info");
         File[] serverResult = server.listFiles();
-        for(File file : Objects.requireNonNull(serverResult)) {
-            num++;
-            map.add(file.getName().substring(0, 6));
-            map.add(file.getName().substring(6));
+        if(serverResult != null){
+            for(File file : serverResult) {
+                num++;
+                map.add(file.getName().substring(0, 6));
+                map.add(file.getName().substring(6));
+            }
         }
         List<Object> ret = new ArrayList<>();
         ret.add(num);
@@ -153,19 +155,23 @@ class Methode {
             e.printStackTrace();
         }
         Map<List<String>, List<String>> map = new HashMap<>();
-        for (List<String> strings : Objects.requireNonNull(carMap)) {
-            File content = new File(location() + "/" + strings.get(0));
-            File[] contentResult = content.listFiles();
-            if (Objects.requireNonNull(contentResult).length != 0) {
-                List<String> listv = new ArrayList<>();
-                listv.add(strings.get(1));
-                listv.add(strings.get(0));
-                List<String> list = new ArrayList<>();
-                for (File file : contentResult) {
-                    list.add(file.getName());
-                }
-                map.put(listv, list);
+        if(carMap != null){
+            for (List<String> strings : carMap) {
+                File content = new File(location() + "/" + strings.get(0));
+                File[] contentResult = content.listFiles();
+                if(contentResult != null) {
+                    if (contentResult.length != 0) {
+                        List<String> listv = new ArrayList<>();
+                        listv.add(strings.get(1));
+                        listv.add(strings.get(0));
+                        List<String> list = new ArrayList<>();
+                        for (File file : contentResult) {
+                            list.add(file.getName());
+                        }
+                        map.put(listv, list);
 
+                    }
+                }
             }
         }
         return map;
@@ -246,6 +252,7 @@ class Methode {
             context.setAttribute("openServ", 0);
         }
         else if ((Integer) servOpen.get(0) == 1) {
+            context.setAttribute("console", getConsole());
             context.setAttribute("serverServ", servOpen.get(1));
             context.setAttribute("openServ", 1);
         }
@@ -266,8 +273,26 @@ class Methode {
             }
         }
     }
-    void runCMD(String cmd, PrintWriter out ) throws IOException, AuthenticationException {
-            out.println(new Rcon("127.0.0.1", 25575, "docserv".getBytes()).command(cmd));
+    void runCMD(String cmd) throws IOException, AuthenticationException {
+        List<Object> open = listOpen();
+        if((int) open.get(0) == 1){
+            Rcon rcon = new Rcon("127.0.0.1", 25575, "docserv".getBytes());
+            rcon.command(cmd);
+            rcon.disconnect();
+            /*
+            List<String> vn = (List<String>) open.get(1);
+            String path = location() + vn.get(0) + "/" + vn.get(1) + "/logs/latest.log";
+            String text = "[RCWebApp] Command : " + cmd;
+            if(Run.isEmpty()){
+                text += " ; " + Run;
+            }
+            System.out.println(path +" | " + text);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
+            writer.write(text);
+            writer.newLine();
+            writer.close();
+            */
+        }
     }
     void doBackup() throws IOException {
         int test = testOS();
@@ -280,6 +305,35 @@ class Methode {
             Runtime.getRuntime().exec(cmd, null, new File(location() + "../backup/"));
         }
     }
+    String getConsole(){
+        String html = "";
+        List<Object> open = listOpen();
+        if((int) open.get(0) == 1) {
+            List vn = (List) open.get(1);
+            File f = new File(location() + vn.get(0) + "/" + vn.get(1) + "/logs/latest.log");
+            try {
+                BufferedReader b = new BufferedReader(new FileReader(f));
+                String readLine = "";
+                while ((readLine = b.readLine()) != null) {
+                    html+="<p";
+                    if(readLine.indexOf("/INFO") != -1){
+                        html+=" class='INFO'";
+                    }
+                    if(readLine.indexOf("/WARN") != -1){
+                        html+=" class='WARN'";
+                    }
+                    if(readLine.indexOf("/ERROR") != -1){
+                        html+=" class='WARN'";
+                    }
+                    html+=">"+readLine+"</p>";
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return html;
+    }
+
 
     //Explorer methode
     void recursifDelete(File path) {
@@ -412,4 +466,5 @@ class Methode {
         }
         zipFile.close();
     }
+
 }
