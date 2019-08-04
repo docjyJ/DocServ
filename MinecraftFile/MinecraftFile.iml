@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module>
+<module version="4">
   <component name="MinecraftFile" inherit-compiler-output="false">
-    <content url="file://D:/DocServ"></content>
+    <content url="file://D:/DocServ" />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://D:/DocServ" />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

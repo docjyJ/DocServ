@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebListener()
 public class Listener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
