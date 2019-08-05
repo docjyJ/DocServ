@@ -21,4 +21,6 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.9'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9.2'
+    //https://github.com/Kronos666/rkon-core
+    compile files('libs/rkon-core-1.1.2.jar')
 }
