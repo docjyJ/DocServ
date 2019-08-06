@@ -2,8 +2,13 @@ package fr.docjyj.docserv;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import com.sun.corba.se.spi.activation.Server;
+import jdk.nashorn.internal.ir.Block;
 import net.kronos.rkon.core.Rcon;
 import net.kronos.rkon.core.ex.AuthenticationException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 
 import javax.imageio.ImageIO;
@@ -176,6 +181,71 @@ class Methode {
         }
         return map;
     }
+    private Object ServerJson() {
+        List<List<String>> carMap = null;
+        try {
+            carMap = new ObjectMapper().readValue(new File(location() + "data/version.json"), new TypeReference<List<List<String>>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray mapListServer = new JSONArray();
+        if(carMap == null){
+            return "ERROR";
+        }
+        for (List<String> strings : carMap) {
+            File content = new File(location() + "/" + strings.get(0));
+            File[] contentResult = content.listFiles();
+            if(contentResult != null) {
+                if (contentResult.length != 0) {
+                    JSONObject version = new JSONObject();
+                    version.put("Id", strings.get(0));
+                    version.put("Name", strings.get(1));
+                    JSONArray listServerName = new JSONArray();
+                    for (File file : contentResult) {
+                        listServerName.add(file.getName());
+                    }
+                    JSONObject listServer = new JSONObject();
+                    listServer.put("Version", version);
+                    listServer.put("Server", listServerName);
+                    mapListServer.add(listServer);
+
+                }
+            }
+        }
+        JSONObject mapListOpen = new JSONObject();
+        JSONArray ListOpen = new JSONArray();
+        Integer num = 0;
+        File server = new File(location() + "/data/info");
+        File[] serverResult = server.listFiles();
+        if(serverResult == null){
+            return "ERROR";
+        }
+        for(File file : serverResult) {
+            num++;
+            String vertionId = file.getName().substring(0, 6);
+            JSONObject version = new JSONObject();
+            version.put("Id",vertionId);
+            for (List<String> strings : carMap) {
+                if(strings.get(0).equals(vertionId)){
+                    version.put("Name",strings.get(1));
+                }
+            }
+            if(version.containsKey("Name")){
+                version.put("Name", "ERROR");
+            }
+            JSONObject listOpen2 = new JSONObject();
+            listOpen2.put("Version", version);
+            listOpen2.put ("Server", file.getName().substring(6));
+            ListOpen.add(listOpen2);
+        }
+        mapListOpen.put("Number", num);
+        mapListOpen.put("ListOpen2", ListOpen);
+
+        JSONObject data = new JSONObject();
+        data.put("ListServer", mapListServer);
+        data.put("ListOpen", mapListOpen);
+        return data;
+    }
     private boolean isTextFile2(File file) throws IOException {
          FileReader reader = new FileReader (file);
         int data = reader.read();
@@ -259,6 +329,13 @@ class Methode {
         else {
             context.setAttribute("openServ", 2);
         }
+    }
+    JSONObject viewServJson() {
+        JSONObject map = new JSONObject();
+        map.put("CON", true);
+        map.put("ETA", "SUCESS");
+        map.put("DATA", ServerJson());
+        return map;
     }
     void startServ(String start) throws IOException {
         if ((Integer) listOpen().get(0) == 0) {
@@ -466,5 +543,6 @@ class Methode {
         }
         zipFile.close();
     }
+
 
 }

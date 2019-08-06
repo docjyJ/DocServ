@@ -25,6 +25,10 @@ public class Minecraft extends HttpServlet {
 			M.viewServ(request.getSession().getServletContext());
 			this.getServletContext().getRequestDispatcher("/WEB-INF/app/minecraft/servers.jsp").forward(request, response);
 		}
+		else if (request.getParameterMap().containsKey("serveursJson")) {
+			request.getSession().getServletContext().setAttribute("json", M.viewServJson());
+			this.getServletContext().getRequestDispatcher("/WEB-INF/app/json.jsp").forward(request, response);
+		}
 		else {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/app/minecraft/main.jsp").forward(request, response);
 		}
