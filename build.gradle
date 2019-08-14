@@ -2,7 +2,7 @@ plugins {
     id 'war'
 }
 
-group 'fr.docjyj'
+group 'fr.docjyj.docserv'
 version '1.0-SNAPSHOT'
 
 repositories {
