@@ -37,7 +37,7 @@ class Methode {
     String location() {
         int test = testOS();
         if(test == 1) {
-            return "D:/DocServ/server/";
+            return "D:\\DocServ\\server\\";
         }
         if(test == 2) {
             return "/DocServ/server/";
